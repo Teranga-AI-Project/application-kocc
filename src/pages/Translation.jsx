@@ -24,7 +24,7 @@ const Translation = () => {
     ];
 
     const handleTranslate = () => {
-        // Simulation de traduction - dans un vrai projet, vous appelleriez votre API ici
+        // Simulation de traduction
         console.log('Translating from', sourceLanguage, 'to', targetLanguage);
     };
 

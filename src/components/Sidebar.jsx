@@ -50,6 +50,7 @@ export const Sidebar = () => {
     };
 
     return (
+
         <>
             {/* Overlay pour mobile */}
             {!isCollapsed && (
@@ -59,16 +60,29 @@ export const Sidebar = () => {
                 />
             )}
 
+            {/* Bouton pour ouvrir le sidebar sur mobile quand il est fermé */}
+            {isCollapsed && (
+                <button
+                    className="fixed top-4 left-4 z-50 lg:hidden bg-gradient-to-r from-[#5fc3c7] to-[#385bc3] text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200"
+                    onClick={toggleSidebar}
+                >
+                    <ChevronRightIcon className="w-6 h-6" />
+                </button>
+            )}
+
             <div className={`
                 ${isCollapsed
-                    ? 'w-16 md:w-20'
+                    ? 'w-16 md:w-20  lg:w-18'
                     : 'w-80 md:w-90'
                 } 
                 h-screen bg-gradient-to-b from-[#5fc3c7] to-[#385bc3] 
                 flex flex-col fixed
                 transition-all duration-300 ease-in-out
                 lg:relative z-50
-                ${isCollapsed ? 'translate-x-0' : 'translate-x-0'}
+                ${isCollapsed
+                    ? '-translate-x-full lg:translate-x-0'
+                    : 'translate-x-0'
+                }
                 shadow-xl lg:shadow-none
             `}>
                 {/* Header */}

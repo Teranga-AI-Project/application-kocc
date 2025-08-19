@@ -2,11 +2,13 @@
 import React, { useState } from 'react';
 import { HiMicrophone, HiPlay, HiPause, HiSpeakerWave, HiEllipsisVertical } from 'react-icons/hi2';
 import { MdDownload } from 'react-icons/md';
+import { TiWorld } from "react-icons/ti";
+import transcription_icon from "../assets/transcription_icon.png";
+import { GlobeAltIcon } from '@heroicons/react/24/outline'
 
 export const Transcription = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState('0:00');
-    const [duration] = useState('7:51');
     const [detectedLanguage] = useState('Russe');
     const [transcription] = useState('Здравствуйте всем, добро пожаловать на эту встречу, которую я организую каждый год, спасибо за ваше участие.');
 
@@ -15,11 +17,14 @@ export const Transcription = () => {
     };
 
     return (
-        <section className='flex-1 md:p-8 min-h-screen bg-white'>
+        <section className={`
+    flex-1 p-4 md:p-8 min-h-screen transition-all duration-300 ease-in-out
+`}>
+
             <div className='max-w-6xl mx-auto'>
                 {/* Header */}
-                <div className='text-center mb-16'>
-                    <h1 className='text-3xl md:text-4xl font-bold text-black mb-8'>
+                <div className='text-center mb-24'>
+                    <h1 className='text-3xl md:text-4xl font-bold text-black mb-24'>
                         AI Audio Transcriber
                     </h1>
 
@@ -76,9 +81,9 @@ export const Transcription = () => {
                         <div className='mb-6'>
                             <div className='flex items-center space-x-2 mb-2'>
                                 <span className='text-gray-700 font-medium'>Detected Language</span>
-                                <div className='w-3 h-3 bg-purple-500 rounded-full'></div>
+                                <div className='w-3 h-3 rounded-full'><GlobeAltIcon className='w-4 h-4 text-gray-500' /></div>
+                                <span className='text-gray-500 font-medium'>{detectedLanguage}</span>
                             </div>
-                            <span className='text-purple-600 font-medium'>{detectedLanguage}</span>
                         </div>
 
                         {/* Transcription */}
@@ -86,7 +91,7 @@ export const Transcription = () => {
                             <div className='flex items-center space-x-2 mb-3'>
                                 <span className='text-gray-700 font-medium'>Transcription</span>
                                 <div className='w-6 h-6 bg-gray-200 rounded flex items-center justify-center'>
-                                    <span className='text-gray-500 text-xs'>📄</span>
+                                    <span className='text-gray-500 text-xs'><img src={transcription_icon} alt="" /></span>
                                 </div>
                             </div>
                             <div className='bg-gray-50 rounded-lg p-4 min-h-[120px]'>
@@ -137,16 +142,6 @@ export const Transcription = () => {
                     </div>
                 </div>
             </div>
-
-            <style jsx>{`
-                @keyframes pulse-wave {
-                    0%, 100% { transform: scaleY(1); }
-                    50% { transform: scaleY(1.5); }
-                }
-                .animate-wave {
-                    animation: pulse-wave 1.5s ease-in-out infinite;
-                }
-            `}</style>
         </section>
     );
 };

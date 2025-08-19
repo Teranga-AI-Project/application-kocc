@@ -41,8 +41,8 @@ export const Summary = () => {
     };
 
     return (
-        <section className='flex-1 p-4 md:p-8 min-h-screen'>
-            <div className='max-w-4xl mx-auto'>
+        <section className='flex-1 p-4 md:p-8 min-h-screen relative'>
+            <div className='px-4 py-6 md:px-8 md:py-8 pb-32 lg:pb-40 relative'>
                 {/* Header */}
                 <div className='text-center mb-8'>
                     <h2 className='text-2xl md:text-4xl font-bold text-blue-500 mb-2'>
@@ -125,75 +125,77 @@ export const Summary = () => {
                 )}
 
                 {/* Input Field */}
-                <div className='bg-gray-100 rounded-2xl  overflow-hidden'>
-                    {/* Image preview */}
-                    {uploadedImage && (
-                        <div className='p-4 border-b border-gray-100'>
-                            <div className='relative inline-block'>
-                                <img
-                                    src={uploadedImage}
-                                    alt="Uploaded"
-                                    className='max-w-32 max-h-32 rounded-lg object-cover'
+                <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-30 w-full max-w-2xl p-4">
+                    <div className="bg-gray-100 rounded-2xl shadow-sm border border-gray-200">
+                        {/* Image preview */}
+                        {uploadedImage && (
+                            <div className='p-4 border-b border-gray-100'>
+                                <div className='relative inline-block'>
+                                    <img
+                                        src={uploadedImage}
+                                        alt="Uploaded"
+                                        className='max-w-32 max-h-32 rounded-lg object-cover'
+                                    />
+                                    <button
+                                        onClick={removeImage}
+                                        className='absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600 transition-colors'
+                                    >
+                                        ×
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                        <div className='flex items-end p-4'>
+                            {/* Upload Button */}
+                            <div className='relative mr-3'>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleImageUpload}
+                                    className='absolute inset-0 w-full h-full opacity-0 cursor-pointer'
+                                    id="image-upload"
                                 />
                                 <button
-                                    onClick={removeImage}
-                                    className='absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600 transition-colors'
+                                    className='p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-all duration-200'
+                                    title="Upload image"
                                 >
-                                    ×
+                                    <IoCloudUploadOutline size={20} />
                                 </button>
                             </div>
-                        </div>
-                    )}
 
-                    <div className='flex items-end p-4'>
-                        {/* Upload Button */}
-                        <div className='relative mr-3'>
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleImageUpload}
-                                className='absolute inset-0 w-full h-full opacity-0 cursor-pointer'
-                                id="image-upload"
-                            />
+                            {/* Text Input */}
+                            <div className='flex-1 mr-3'>
+                                <textarea
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                    onKeyPress={handleKeyPress}
+                                    placeholder="Send a message to Kocc"
+                                    className='w-full border-none outline-none resize-none text-gray-700 placeholder-gray-400 bg-transparent min-h-[24px] max-h-[120px] text-sm md:text-base'
+                                    rows="1"
+                                    style={{
+                                        scrollbarWidth: 'none',
+                                        msOverflowStyle: 'none'
+                                    }}
+                                    onInput={(e) => {
+                                        e.target.style.height = 'auto';
+                                        e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
+                                    }}
+                                />
+                            </div>
+
+                            {/* Send Button */}
                             <button
-                                className='p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-all duration-200'
-                                title="Upload image"
+                                onClick={handleSend}
+                                disabled={!message.trim()}
+                                className={`p-3 rounded-full transition-all duration-200 flex items-center justify-center ${message.trim()
+                                    ? 'bg-blue-500 text-white hover:bg-gray-700 shadow-sm'
+                                    : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                                    }`}
                             >
-                                <IoCloudUploadOutline size={20} />
+                                <FaArrowUp size={16} />
                             </button>
                         </div>
-
-                        {/* Text Input */}
-                        <div className='flex-1 mr-3'>
-                            <textarea
-                                value={message}
-                                onChange={(e) => setMessage(e.target.value)}
-                                onKeyPress={handleKeyPress}
-                                placeholder="Send a message to Kocc"
-                                className='w-full border-none outline-none resize-none text-gray-700 placeholder-gray-400 bg-transparent min-h-[24px] max-h-[120px] text-sm md:text-base'
-                                rows="1"
-                                style={{
-                                    scrollbarWidth: 'none',
-                                    msOverflowStyle: 'none'
-                                }}
-                                onInput={(e) => {
-                                    e.target.style.height = 'auto';
-                                    e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
-                                }}
-                            />
-                        </div>
-
-                        {/* Send Button */}
-                        <button
-                            onClick={handleSend}
-                            disabled={!message.trim()}
-                            className={`p-3 rounded-full transition-all duration-200 flex items-center justify-center ${message.trim()
-                                ? 'bg-blue-500 text-white hover:bg-gray-700 shadow-sm'
-                                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                                }`}
-                        >
-                            <FaArrowUp size={16} />
-                        </button>
                     </div>
                 </div>
             </div>
